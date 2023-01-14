@@ -1,0 +1,1 @@
+{"version":3,"file":"is-auth-admin.js","sourceRoot":"","sources":["../../middleware/is-auth-admin.ts"],"names":[],"mappings":";;;AAEO,MAAM,cAAc,GAAG,KAAK,EAAE,GAAG,EAAE,GAAG,EAAE,IAAI,EAAE,EAAE;IACrD,IAAI,GAAG,CAAC,OAAO,CAAC,IAAI,IAAI,UAAU,EAAE;QAClC,OAAO,GAAG,CAAC,QAAQ,CAAC,GAAG,CAAC,CAAC;KAC1B;IACD,IAAI,EAAE,CAAC;AACT,CAAC,CAAC;AALW,QAAA,cAAc,kBAKzB"}

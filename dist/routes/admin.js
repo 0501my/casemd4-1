@@ -1,0 +1,30 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const adminRouter = (0, express_1.Router)();
+const cors_1 = __importDefault(require("cors"));
+const admin_1 = require("../controllers/admin");
+const is_auth_admin_1 = require("../middleware/is-auth-admin");
+const is_auth_1 = require("../middleware/is-auth");
+adminRouter.use((0, cors_1.default)());
+adminRouter.get("/", is_auth_1.checkAuth, is_auth_admin_1.checkAuthAdmin, admin_1.AdminController.getAdmin);
+adminRouter.get("/managerusers", is_auth_1.checkAuth, is_auth_admin_1.checkAuthAdmin, admin_1.AdminController.getManagerUsers);
+adminRouter.get("/managerusers/update/:_id", is_auth_1.checkAuth, is_auth_admin_1.checkAuthAdmin, admin_1.AdminController.getUpdate);
+adminRouter.post("/managerusers/update", is_auth_1.checkAuth, is_auth_admin_1.checkAuthAdmin, admin_1.AdminController.postUpdateUser);
+adminRouter.get("/managerusers/delete/:_id", is_auth_1.checkAuth, is_auth_admin_1.checkAuthAdmin, admin_1.AdminController.getRemoveUser);
+adminRouter.get("/managerorder", is_auth_1.checkAuth, is_auth_admin_1.checkAuthAdmin, admin_1.AdminController.getListOrder);
+adminRouter.post("/managerorder", is_auth_1.checkAuth, is_auth_admin_1.checkAuthAdmin, admin_1.AdminController.postListOrder);
+adminRouter.get("/managerproducts", is_auth_1.checkAuth, is_auth_admin_1.checkAuthAdmin, admin_1.AdminController.getListNewProduct);
+adminRouter.get("/manageriphone", is_auth_1.checkAuth, is_auth_admin_1.checkAuthAdmin, admin_1.AdminController.getListiPhone);
+adminRouter.get("/managermacbook", is_auth_1.checkAuth, is_auth_admin_1.checkAuthAdmin, admin_1.AdminController.getListMacbook);
+adminRouter.get("/managerapplewatch", is_auth_admin_1.checkAuthAdmin, admin_1.AdminController.getListAppleWatch);
+adminRouter.get("/managerairpod", is_auth_admin_1.checkAuthAdmin, admin_1.AdminController.getListAirpod);
+adminRouter.get("/managernewproduct", is_auth_admin_1.checkAuthAdmin, admin_1.AdminController.getListNewProduct);
+adminRouter.get("/managerproducts/delete/:_id", is_auth_admin_1.checkAuthAdmin, admin_1.AdminController.getRemoveNewProduct);
+adminRouter.get("/managerproducts/update/:_id", is_auth_admin_1.checkAuthAdmin, admin_1.AdminController.getUpdateNewProduct);
+adminRouter.post("/managerproducts/update", is_auth_admin_1.checkAuthAdmin, admin_1.AdminController.postUpdateNewProduct);
+exports.default = adminRouter;
+//# sourceMappingURL=admin.js.map
