@@ -24,7 +24,8 @@ class User {
             path: "/signup",
             pageTitle: "signup",
             errorMessage: message,
-            userr: null
+            userr: null,
+            isAuthenticated: null
         });
     }
     static async postSignUp(req, res, next) {
@@ -93,7 +94,8 @@ class User {
             path: "/login",
             pageTitle: "Login",
             errorMessage: message,
-            userr: null
+            userr: null,
+            isAuthenticated: false
         });
     }
     static async postLogin(req, res, next) {
@@ -104,14 +106,16 @@ class User {
                 return res.render("user/login", {
                     path: "/login",
                     errorMessage: "Username or password wrong",
-                    userr: null
+                    userr: null,
+                    isAuthenticated: false
                 });
             }
             if (req.body.username === "" || req.body.password == "") {
                 return res.render("user/login", {
                     path: "/login",
                     errorMessage: "Invailid username or password",
-                    userr: null
+                    userr: null,
+                    isAuthenticated: false
                 });
             }
             bcryptjs_1.default.compare(req.body.password, user.password, function (err, result) {
@@ -123,11 +127,11 @@ class User {
                             email: user.email,
                             userID: user._id,
                             role: user.role
-                        }, process.env.SECRETKEY_TOKEN);
+                        }, process.env.SECRETKEY_TOKEN || 'Dai');
                         req.session.token = token;
                         req.session.role = user.role;
                         return req.session.save(err => {
-                            res.redirect("/adminTin");
+                            res.redirect("/admin");
                         });
                     }
                     else {
@@ -135,13 +139,13 @@ class User {
                             email: user.email,
                             userID: user._id,
                             role: user.role
-                        }, process.env.SECRETKEY_TOKEN);
+                        }, process.env.SECRETKEY_TOKEN || 'Dai');
                         req.session.token = token;
                         req.session.role = user.role;
                         console.log(user);
                         return req.session.save(err => {
                             res.redirect(url_1.default.format({
-                                pathname: "/"
+                                pathname: "/home"
                             }));
                         });
                     }
@@ -150,7 +154,8 @@ class User {
                     return res.render("user/login", {
                         path: "/login",
                         errorMessage: "Invailid username or password",
-                        userr: null
+                        userr: null,
+                        isAuthenticated: false
                     });
                 }
             });
@@ -159,7 +164,7 @@ class User {
     static async postLogout(req, res, next) {
         req.session.destroy(err => {
             console.log(err);
-            res.redirect("/");
+            res.redirect("/user/logout");
         });
     }
     static async getAccount(req, res, next) {
@@ -179,7 +184,8 @@ class User {
                 return res.render("user/login", {
                     path: "/login",
                     errorMessage: "Age or Phone is Empty",
-                    userr: null
+                    userr: null,
+                    isAuthenticated: false
                 });
             }
             user.age = age;
@@ -224,6 +230,7 @@ class User {
                     sum: user.cart.sum,
                     errorMessage: message,
                     error: boolError,
+                    isAuthenticated: false
                 });
             });
         })

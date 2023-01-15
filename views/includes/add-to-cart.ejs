@@ -17,23 +17,23 @@
     <input type="hidden" id="pQuantity" name="pQuantity" value="0">
 </form>
 <script>
-    var AddToCart = (function(){
-        var getQuantityOfProduct = function() {
-            var result = $('#pQuantity').val();
+    const AddToCart = (function () {
+        let getQuantityOfProduct = function () {
+            let result = $('#pQuantity').val();
             return result;
         };
-        var plusProduct = function() {
-            var num = getQuantityOfProduct() + 1;
+        let plusProduct = function () {
+            let num = getQuantityOfProduct() + 1;
             $('#pQuantity').val(num);
             console.log("Number of product after plus: " + num);
         };
 
-        var minusProduct = function() {
-            var num = getQuantityOfProduct() - 1;
+        let minusProduct = function () {
+            let num = getQuantityOfProduct() - 1;
             $('#pQuantity').val(num);
             console.log("Number of product after minus: " + num);
         };
-        return 
+        return
     }());
 
 </script>

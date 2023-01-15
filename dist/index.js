@@ -19,7 +19,7 @@ const users_1 = __importDefault(require("./routes/users"));
 const admin_1 = __importDefault(require("./routes/admin"));
 const product_1 = __importDefault(require("./routes/product"));
 const port = process.env.port || 3000;
-const MONGODB_URI = 'mongodb+srv://admin:admin@web-nodejs-zrtjg.mongodb.net/case?retryWrites=true&w=majority';
+const MONGODB_URI = 'mongodb://127.0.0.1:27017/shop';
 mongoose_1.default.connect(MONGODB_URI).then(() => console.log('DB connect'))
     .catch(err => console.log('DB Err', err.message));
 app.use((0, morgan_1.default)('dev'));
@@ -42,13 +42,8 @@ app.use(admin_1.default);
 app.use(product_1.default);
 app.set('view engine', 'ejs');
 app.set('views', 'views');
-app.use(function (req, res, next) {
-    const err = new Error('123 123 Not found!');
-    next(err);
-});
 (0, routes_1.default)(app);
 app.listen(port, function () {
     console.log('Server is running http://localhost:3000');
 });
-module.exports = app;
 //# sourceMappingURL=index.js.map

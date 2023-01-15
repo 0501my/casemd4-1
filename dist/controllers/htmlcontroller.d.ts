@@ -1,7 +1,7 @@
 export declare class HtmlController {
     static homepage(req: any, res: any, next: any): Promise<void>;
     static contact(req: any, res: any, next: any): Promise<void>;
-    static getAbout(req: any, res: any, next: any): Promise<void>;
+    static about(req: any, res: any, next: any): Promise<void>;
     static blog(req: any, res: any, next: any): Promise<void>;
     static iphone(req: any, res: any, next: any): Promise<void>;
     static macbook(req: any, res: any, next: any): Promise<void>;

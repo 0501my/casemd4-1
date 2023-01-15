@@ -12,7 +12,6 @@ import session from 'express-session';
 
 import passport from 'passport';
 mongoose.set('strictQuery', true);
-
 require('dotenv').config()
 
 //Router
@@ -25,7 +24,7 @@ const port = process.env.port || 3000;
 
 
 const MONGODB_URI =
-    'mongodb+srv://admin:admin@web-nodejs-zrtjg.mongodb.net/case?retryWrites=true&w=majority';
+    'mongodb://127.0.0.1:27017/shop';
 
 mongoose.connect(
     MONGODB_URI
@@ -76,13 +75,9 @@ app.set('views', 'views');
 
 
 //-404 Error
-app.use(function (req, res, next) {
-    const err = new Error('123 123 Not found!');
-    next(err)
-});
+
 router(app);
 
 app.listen(port, function () {
     console.log('Server is running http://localhost:3000')
 })
-module.exports = app;

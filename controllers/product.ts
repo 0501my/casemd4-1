@@ -17,7 +17,8 @@ export class Product {
         }
         req.session.isManager = false;
         res.render("product/addproduct", {
-            errorMessageProduct: message
+            errorMessageProduct: message,
+            Manager : null
         });
     }
 
@@ -42,7 +43,8 @@ export class Product {
                 if (product) {
                     return res.render("product/addproduct", {
                         errorMessageProduct: console.log("PRoduct is Exists"),
-                        productt: null
+                        productt: null,
+                        Manager : null
                     });
                 }
                 if (
@@ -65,7 +67,8 @@ export class Product {
                         description: description,
                         quantity: quantity,
                         category: category,
-                        created: created
+                        created: created,
+                        Manager : null
                     });
                     newproductData
                         .save()
@@ -75,11 +78,9 @@ export class Product {
                 }
             })
             .then(function (result) {
-                res.redirect("/adminTin");
+                res.redirect("/admin");
             })
-            .catch(function (err) {
-                res.send("error: " + err);
-            });
+
     }
 
     static async getProductDetail(req, res, next) {
@@ -91,12 +92,11 @@ export class Product {
                     .then((productdetail) => {
 
                         res.render("product/product-detail", {
-                            product: productdetail
+                            product: productdetail,
+                            Manager : null,
+                            isAuthenticated : false
                         });
                     })
-                    .catch(err => {
-                        console.log(err);
-                    });
             })
             .catch(err => {
                 console.log(err);

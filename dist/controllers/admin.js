@@ -17,9 +17,7 @@ class AdminController {
                 count: count,
                 listusers: user,
                 listorders: data,
-            })
-                .catch(err => {
-                console.log(err);
+                Manager: null
             });
         });
     }
@@ -31,10 +29,8 @@ class AdminController {
             res.render("admin/list-user", {
                 path: "/admin/list-user",
                 count: count,
-                listusers: user
-            })
-                .catch(err => {
-                console.log(err);
+                listusers: user,
+                Manager: null
             });
         });
     }
@@ -44,15 +40,13 @@ class AdminController {
         user_1.UserModel.findById(userID)
             .then(function (user) {
             if (!user) {
-                return res.redicter("/adminTin");
+                return res.redicter("/admin");
             }
             res.render("admin/updateusers", {
                 user: user,
-                alo: console.log(user.username)
+                alo: console.log(user.username),
+                Manager: null
             });
-        })
-            .catch(function (err) {
-            console.log("TCL: ", err);
         });
     }
     static async postUpdateUser(req, res, next) {
@@ -79,10 +73,7 @@ class AdminController {
         })
             .then(function (result) {
             console.log("Complete Updated Completed user!");
-            res.redirect("/adminTin");
-        })
-            .catch(function (err) {
-            console.log("TCL: ", err);
+            res.redirect("/admin");
         });
     }
     static async getRemoveUser(req, res, next) {
@@ -93,10 +84,7 @@ class AdminController {
         })
             .then(function (result) {
             console.log("Complete Delete Completed user!");
-            res.redirect("/adminTin/managerusers");
-        })
-            .catch(function (err) {
-            console.log("TCL: ", err);
+            res.redirect("/admin/managerusers");
         });
     }
     static async getListOrder(req, res, next) {
@@ -108,7 +96,8 @@ class AdminController {
             res.render("admin/list-order", {
                 path: "/admin/list-order",
                 count: count,
-                listorder: data
+                listorder: data,
+                Manager: null
             });
         })
             .catch(err => {
@@ -128,11 +117,9 @@ class AdminController {
                 path: "/admin/list-order",
                 yearorder: year,
                 count: count,
-                listorder: data2
+                listorder: data2,
+                Manager: null
             });
-        })
-            .catch(err => {
-            console.log(err);
         });
     }
     static async getListNewProduct(req, res, next) {
@@ -144,11 +131,9 @@ class AdminController {
                 path: "/admin/list-product",
                 count: count,
                 kind: 'allproducts',
-                listproducts: products
+                listproducts: products,
+                Manager: null
             });
-        })
-            .catch(err => {
-            console.log(err);
         });
     }
     static async getListiPhone(req, res, next) {
@@ -162,11 +147,9 @@ class AdminController {
                 path: "/admin/list-product",
                 count: count,
                 kind: 'iphone',
-                listproducts: data
+                listproducts: data,
+                Manager: null
             });
-        })
-            .catch(err => {
-            console.log(err);
         });
     }
     static async getListMacbook(req, res, next) {
@@ -180,11 +163,9 @@ class AdminController {
                 path: "/admin/list-product",
                 count: count,
                 kind: 'macbook',
-                listproducts: data
+                listproducts: data,
+                Manager: null
             });
-        })
-            .catch(err => {
-            console.log(err);
         });
     }
     static async getListAppleWatch(req, res, next) {
@@ -198,11 +179,9 @@ class AdminController {
                 path: "/admin/list-product",
                 count: count,
                 kind: 'applewatch',
-                listproducts: data
+                listproducts: data,
+                Manager: null
             });
-        })
-            .catch(err => {
-            console.log(err);
         });
     }
     static async getListAirpod(req, res, next) {
@@ -216,11 +195,9 @@ class AdminController {
                 path: "/admin/list-product",
                 count: count,
                 kind: 'airpods',
-                listproducts: data
+                listproducts: data,
+                Manager: null
             });
-        })
-            .catch(err => {
-            console.log(err);
         });
     }
     static async getRemoveNewProduct(req, res, next) {
@@ -232,10 +209,7 @@ class AdminController {
         })
             .then(function (result) {
             console.log("Complete Delete Product!");
-            res.redirect('/adminTin/managerproducts');
-        })
-            .catch(function (err) {
-            console.log("TCL: ", err);
+            res.redirect('/admin/managerproducts');
         });
     }
     static async getUpdateNewProduct(req, res, next) {
@@ -244,15 +218,13 @@ class AdminController {
         newproduct_1.ProductModel.findById(newproductID)
             .then(function (newproduct) {
             if (!newproduct) {
-                return res.redicter("/adminTin");
+                return res.redicter("/admin");
             }
             res.render("admin/update-product", {
                 airpods: newproduct,
-                alo: console.log(newproduct.productName)
+                alo: console.log(newproduct.productName),
+                Manager: null
             });
-        })
-            .catch(function (err) {
-            console.log("TCL: ", err);
         });
     }
     static async postUpdateNewProduct(req, res, next) {
@@ -278,10 +250,7 @@ class AdminController {
         })
             .then(function (result) {
             console.log("Complete Updated Completed Product!");
-            res.redirect("/adminTin/managerproducts");
-        })
-            .catch(function (err) {
-            console.log("TCL: ", err);
+            res.redirect("/admin/managerproducts");
         });
     }
 }

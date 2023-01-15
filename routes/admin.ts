@@ -1,4 +1,4 @@
-import express from "express";
+
 import {Router} from "express";
 
 const adminRouter = Router();
@@ -7,6 +7,7 @@ import cors from 'cors'
 import {AdminController} from "../controllers/admin";
 import {checkAuthAdmin} from "../middleware/is-auth-admin";
 import {checkAuth} from "../middleware/is-auth";
+import {Product} from "../controllers/product";
 
 adminRouter.use(cors());
 
@@ -53,4 +54,9 @@ adminRouter.post(
     "/managerproducts/update", checkAuthAdmin,
     AdminController.postUpdateNewProduct
 );
+adminRouter.get('/addproduct',checkAuthAdmin, Product.getAddProduct)
+adminRouter.post('/addproduct',checkAuthAdmin, Product.postAddProduct)
+
+adminRouter.get('/product/:_id',Product.getProductDetail)
+
 export default adminRouter;

@@ -9,6 +9,7 @@ const cors_1 = __importDefault(require("cors"));
 const admin_1 = require("../controllers/admin");
 const is_auth_admin_1 = require("../middleware/is-auth-admin");
 const is_auth_1 = require("../middleware/is-auth");
+const product_1 = require("../controllers/product");
 adminRouter.use((0, cors_1.default)());
 adminRouter.get("/", is_auth_1.checkAuth, is_auth_admin_1.checkAuthAdmin, admin_1.AdminController.getAdmin);
 adminRouter.get("/managerusers", is_auth_1.checkAuth, is_auth_admin_1.checkAuthAdmin, admin_1.AdminController.getManagerUsers);
@@ -26,5 +27,8 @@ adminRouter.get("/managernewproduct", is_auth_admin_1.checkAuthAdmin, admin_1.Ad
 adminRouter.get("/managerproducts/delete/:_id", is_auth_admin_1.checkAuthAdmin, admin_1.AdminController.getRemoveNewProduct);
 adminRouter.get("/managerproducts/update/:_id", is_auth_admin_1.checkAuthAdmin, admin_1.AdminController.getUpdateNewProduct);
 adminRouter.post("/managerproducts/update", is_auth_admin_1.checkAuthAdmin, admin_1.AdminController.postUpdateNewProduct);
+adminRouter.get('/addproduct', is_auth_admin_1.checkAuthAdmin, product_1.Product.getAddProduct);
+adminRouter.post('/addproduct', is_auth_admin_1.checkAuthAdmin, product_1.Product.postAddProduct);
+adminRouter.get('/product/:_id', product_1.Product.getProductDetail);
 exports.default = adminRouter;
 //# sourceMappingURL=admin.js.map

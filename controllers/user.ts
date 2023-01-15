@@ -5,7 +5,6 @@ import jwt from "jsonwebtoken";
 import url from 'url';
 import {UserModel} from "../models/user";
 import {ProductModel} from "../models/newproduct";
-
 const urlencodedParser = bodyParser.urlencoded({extended: false});
 
 export class User{
@@ -20,7 +19,9 @@ export class User{
             path: "/signup",
             pageTitle: "signup",
             errorMessage: message,
-            userr: null
+            userr: null,
+            isAuthenticated : null
+
         });
     }
 
@@ -104,7 +105,8 @@ export class User{
             path: "/login",
             pageTitle: "Login",
             errorMessage: message,
-            userr: null
+            userr: null,
+            isAuthenticated: false
         });
     }
 
@@ -116,17 +118,18 @@ export class User{
                 return res.render("user/login", {
                     path: "/login",
                     errorMessage: "Username or password wrong",
-                    userr: null
+                    userr: null,
+                    isAuthenticated: false
                 });
             }
             if (req.body.username === "" || req.body.password == "") {
                 return res.render("user/login", {
                     path: "/login",
                     errorMessage: "Invailid username or password",
-                    userr: null
+                    userr: null,
+                    isAuthenticated: false
                 });
             }
-
             bcrypt.compare(req.body.password, user.password, function (err, result) {
                 if (result) {
                     req.session.isLoggedIn = true;
@@ -138,12 +141,12 @@ export class User{
                                 userID: user._id,
                                 role: user.role
                             },
-                            process.env.SECRETKEY_TOKEN
+                            process.env.SECRETKEY_TOKEN || 'Dai'
                         );
                         req.session.token = token;
                         req.session.role = user.role;
                         return req.session.save(err => {
-                            res.redirect("/adminTin");
+                            res.redirect("/admin");
                         });
                     } else {
                         const token = jwt.sign(
@@ -152,14 +155,14 @@ export class User{
                                 userID: user._id,
                                 role: user.role
                             },
-                            process.env.SECRETKEY_TOKEN
+                            process.env.SECRETKEY_TOKEN || 'Dai'
                         );
                         req.session.token = token;
                         req.session.role = user.role;
                         console.log(user)
                         return req.session.save(err => {
                             res.redirect(url.format({
-                                pathname: "/"
+                                pathname: "/home"
                             }));
                         });
                     }
@@ -167,7 +170,8 @@ export class User{
                     return res.render("user/login", {
                         path: "/login",
                         errorMessage: "Invailid username or password",
-                        userr: null
+                        userr: null,
+                        isAuthenticated: false
                     });
                 }
             });
@@ -175,11 +179,11 @@ export class User{
     }
 
     //Logout
- static async  postLogout(req, res, next) {
+ static async postLogout(req, res, next) {
         // huy session khi user dang xuat
         req.session.destroy(err => {
             console.log(err);
-            res.redirect("/");
+            res.redirect("/user/logout");
         });
     }
 
@@ -189,7 +193,7 @@ export class User{
     }
 
     //Edit User
- static async  postEditUser(req, res, next) {
+ static async postEditUser(req, res, next) {
         const userID = req.body._id;
         const age = req.body.age;
         const phone = req.body.phone;
@@ -203,7 +207,8 @@ export class User{
                     return res.render("user/login", {
                         path: "/login",
                         errorMessage: "Age or Phone is Empty",
-                        userr: null
+                        userr: null,
+                        isAuthenticated :false
                     });
                 }
 
@@ -224,7 +229,7 @@ export class User{
     }
 
     //Cart
- static async  getCartPage(req, res, next) {
+ static async getCartPage(req, res, next) {
         let message = req.flash("errorMessage");
         let boolError = req.flash("error")
         if (message.length > 0) {
@@ -251,6 +256,7 @@ export class User{
                             sum: user.cart.sum,
                             errorMessage: message,
                             error: boolError,
+                            isAuthenticated : false
                         });
                     })
             })
@@ -364,9 +370,9 @@ static async   postCart(req, res, next) {
             //             req.flash('error', '123')
             //             res.redirect("/cart");
             //         } else if (name != "" && mobilenumber != "" && address != "") {
-            //             var promiseCheckOut = new Promise((resolve, reject) => {
+            //             const promiseCheckOut = new Promise((resolve, reject) => {
             //                 resolve(CheckOut(name, mobilenumber, address))
-            //             })
+            //             });
             //             promiseCheckOut.then(result => {
             //                 setTimeout(function () {
             //                     req.flash('errorMessage', 'Thank you for your purchase!');

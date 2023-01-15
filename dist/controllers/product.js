@@ -19,7 +19,8 @@ class Product {
         }
         req.session.isManager = false;
         res.render("product/addproduct", {
-            errorMessageProduct: message
+            errorMessageProduct: message,
+            Manager: null
         });
     }
     static async postAddProduct(req, res, next) {
@@ -35,7 +36,8 @@ class Product {
             if (product) {
                 return res.render("product/addproduct", {
                     errorMessageProduct: console.log("PRoduct is Exists"),
-                    productt: null
+                    productt: null,
+                    Manager: null
                 });
             }
             if (productname == "" ||
@@ -56,7 +58,8 @@ class Product {
                     description: description,
                     quantity: quantity,
                     category: category,
-                    created: created
+                    created: created,
+                    Manager: null
                 });
                 newproductData
                     .save()
@@ -66,10 +69,7 @@ class Product {
             }
         })
             .then(function (result) {
-            res.redirect("/adminTin");
-        })
-            .catch(function (err) {
-            res.send("error: " + err);
+            res.redirect("/admin");
         });
     }
     static async getProductDetail(req, res, next) {
@@ -80,11 +80,10 @@ class Product {
             newproduct_1.ProductModel.findById(productId)
                 .then((productdetail) => {
                 res.render("product/product-detail", {
-                    product: productdetail
+                    product: productdetail,
+                    Manager: null,
+                    isAuthenticated: false
                 });
-            })
-                .catch(err => {
-                console.log(err);
             });
         })
             .catch(err => {

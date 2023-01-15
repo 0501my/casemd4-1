@@ -17,10 +17,8 @@ export class AdminController {
                 count: count,
                 listusers: user,
                 listorders: data,
+                Manager : null
             })
-                .catch(err => {
-                    console.log(err);
-                });
         });
     }
 
@@ -34,11 +32,9 @@ export class AdminController {
             res.render("admin/list-user", {
                 path: "/admin/list-user",
                 count: count,
-                listusers: user
+                listusers: user,
+                Manager : null
             })
-                .catch(err => {
-                    console.log(err);
-                });
         });
     }
 
@@ -49,16 +45,14 @@ export class AdminController {
         UserModel.findById(userID)
             .then(function (user) {
                 if (!user) {
-                    return res.redicter("/adminTin");
+                    return res.redicter("/admin");
                 }
                 res.render("admin/updateusers", {
                     user: user,
-                    alo: console.log(user.username)
+                    alo: console.log(user.username),
+                    Manager : null
                 });
             })
-            .catch(function (err) {
-                console.log("TCL: ", err);
-            });
     }
 
     static async postUpdateUser(req, res, next) {
@@ -85,11 +79,8 @@ export class AdminController {
             })
             .then(function (result) {
                 console.log("Complete Updated Completed user!");
-                res.redirect("/adminTin")
+                res.redirect("/admin")
             })
-            .catch(function (err) {
-                console.log("TCL: ", err);
-            });
     }
 
     //Remove
@@ -101,11 +92,8 @@ export class AdminController {
         })
             .then(function (result) {
                 console.log("Complete Delete Completed user!");
-                res.redirect("/adminTin/managerusers");
+                res.redirect("/admin/managerusers");
             })
-            .catch(function (err) {
-                console.log("TCL: ", err);
-            });
     }
 
     /*List Order*/
@@ -118,7 +106,8 @@ export class AdminController {
                 res.render("admin/list-order", {
                     path: "/admin/list-order",
                     count: count,
-                    listorder: data
+                    listorder: data,
+                    Manager : null
                 });
             })
             .catch(err => {
@@ -142,12 +131,10 @@ export class AdminController {
                     path: "/admin/list-order",
                     yearorder: year,
                     count: count,
-                    listorder: data2
+                    listorder: data2,
+                    Manager : null
                 });
             })
-            .catch(err => {
-                console.log(err);
-            });
     }
 
     /* New DB*/
@@ -160,12 +147,10 @@ export class AdminController {
                     path: "/admin/list-product",
                     count: count,
                     kind: 'allproducts',
-                    listproducts: products
+                    listproducts: products,
+                    Manager : null
                 });
             })
-            .catch(err => {
-                console.log(err);
-            });
     }
 
     //List iPhone
@@ -180,12 +165,10 @@ export class AdminController {
                     path: "/admin/list-product",
                     count: count,
                     kind: 'iphone',
-                    listproducts: data
+                    listproducts: data,
+                    Manager : null
                 });
             })
-            .catch(err => {
-                console.log(err);
-            });
     }
 
     //-------------------------------------------------------------------
@@ -201,12 +184,10 @@ export class AdminController {
                     path: "/admin/list-product",
                     count: count,
                     kind: 'macbook',
-                    listproducts: data
+                    listproducts: data,
+                    Manager : null
                 });
             })
-            .catch(err => {
-                console.log(err);
-            });
     }
 
     //-------------------------------------------------------------------
@@ -222,12 +203,10 @@ export class AdminController {
                     path: "/admin/list-product",
                     count: count,
                     kind: 'applewatch',
-                    listproducts: data
+                    listproducts: data,
+                    Manager : null
                 });
             })
-            .catch(err => {
-                console.log(err);
-            });
     }
 
     //-------------------------------------------------------------------
@@ -243,12 +222,10 @@ export class AdminController {
                     path: "/admin/list-product",
                     count: count,
                     kind: 'airpods',
-                    listproducts: data
+                    listproducts: data,
+                    Manager : null
                 });
             })
-            .catch(err => {
-                console.log(err);
-            });
     }
 
     static async getRemoveNewProduct(req, res, next) {
@@ -260,11 +237,8 @@ export class AdminController {
         })
             .then(function (result) {
                 console.log("Complete Delete Product!");
-                res.redirect('/adminTin/managerproducts')
+                res.redirect('/admin/managerproducts')
             })
-            .catch(function (err) {
-                console.log("TCL: ", err);
-            });
     }
 
     static async getUpdateNewProduct(req, res, next) {
@@ -273,16 +247,14 @@ export class AdminController {
         ProductModel.findById(newproductID)
             .then(function (newproduct) {
                 if (!newproduct) {
-                    return res.redicter("/adminTin");
+                    return res.redicter("/admin");
                 }
                 res.render("admin/update-product", {
                     airpods: newproduct,
-                    alo: console.log(newproduct.productName)
+                    alo: console.log(newproduct.productName),
+                    Manager : null
                 });
             })
-            .catch(function (err) {
-                console.log("TCL: ", err);
-            });
     }
 
     static async postUpdateNewProduct(req, res, next) {
@@ -308,11 +280,8 @@ export class AdminController {
             })
             .then(function (result) {
                 console.log("Complete Updated Completed Product!");
-                res.redirect("/adminTin/managerproducts");
+                res.redirect("/admin/managerproducts");
             })
-            .catch(function (err) {
-                console.log("TCL: ", err);
-            });
     }
 
     /*

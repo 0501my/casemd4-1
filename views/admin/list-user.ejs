@@ -43,7 +43,7 @@
                                         </tr>
                                     </thead>
                                     <% var i =0 %>
-                                    <form method="POST" action="/adminTin/managerusers/delete">
+                                    <form method="POST" action="/admin/managerusers/delete">
                                         <% listusers.forEach(function (user) { %>
                                         <tbody>
                                             <tr>
@@ -73,12 +73,12 @@
 
                                                 <div class="editTable">
                                                     <td style="display:flex; justify-content:space-evenly;">
-                                                        <a href="../adminTin/managerusers/update/<%= user._id %>"
+                                                        <a href="../admin/managerusers/update/<%= user._id %>"
                                                             data-toggle="tooltip" data-placement="top" title="Edit">
                                                             <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                                         </a>
 
-                                                        <a href="../adminTin/managerusers/delete/<%= user._id %>"
+                                                        <a href="../admin/managerusers/delete/<%= user._id %>"
                                                             data-toggle="tooltip" data-placement="top" title="Delete">
                                                             <i class="fa fa-trash" aria-hidden="true"></i>
                                                         </a>
